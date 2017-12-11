@@ -1,0 +1,22 @@
+{
+  "name": "quantified-self-be",
+  "version": "1.0.0",
+  "description": "Backend for quantified self project",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "mocha"
+  },
+  "author": "Aram Anderson, Yohanan Assefa",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.2",
+    "knex": "^0.14.2",
+    "pg": "^7.4.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1",
+    "nodemon": "^1.12.5"
+  }
+}
