@@ -45,6 +45,14 @@ app.delete('/api/v1/meals/:meal_id/foods/:id', (request, response) => {
   })
 })
 
+app.get('/api/v1/foods', (request, response) => {
+  return database.raw("SELECT * FROM foods")
+  .then(function (data) {
+    if (data.rowCount === 0) { return response.sendStatus(404) }
+    response.json(data.rows)
+  })
+})
+
 if (!module.parent) {
   app.listen(app.get('port'), function () {
     console.log(`Quantified Self BE is running on port ${app.get('port')}`)
