@@ -10,9 +10,9 @@ app.set('port', process.env.PORT || 3000)
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(cors)
+app.use(cors())
 
-app.get('/',function (request, response) {
+app.get('/', function (request, response) {
   response.sendFile(path.join(__dirname +'/index.html'));
 });
 
