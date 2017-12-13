@@ -3,6 +3,7 @@ var app = express()
 var bodyParser = require('body-parser')
 const Meal = require('./lib/models/meal')
 const path = require('path')
+const database = require('knex')(configuration)
 
 app.set('port', process.env.PORT || 3000)
 
