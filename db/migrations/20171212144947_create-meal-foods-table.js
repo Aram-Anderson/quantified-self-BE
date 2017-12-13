@@ -1,9 +1,10 @@
 exports.up = function(knex, Promise) {
   let createQuery = `CREATE TABLE meal_foods(
     id SERIAL PRIMARY KEY NOT NULL,
-    mealId INT,
-    foodId INT,
-    created_at TIMESTAMP
+    meal INT,
+    food INT,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
   )`
   return knex.raw(createQuery)
 }
