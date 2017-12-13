@@ -23,3 +23,9 @@ app.get('/api/v1/foods/:id', FoodController.getSingleFood);
 app.delete('/api/v1/foods/:id', FoodController.deleteFood);
 
 app.put('/api/v1/foods/:id', FoodController.updateFood);
+
+
+
+app.listen(app.get('port'), function() {
+  console.log(`App is running on ${app.get('port')}.`)
+})
