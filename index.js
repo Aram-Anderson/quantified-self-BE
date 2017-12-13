@@ -2,8 +2,8 @@ var express = require('express')
 var app = express()
 var bodyParser = require('body-parser')
 const Meal = require('./lib/models/meal')
+const Food = require('./lib/models/food')
 const path = require('path')
-const database = require('knex')(configuration)
 
 app.set('port', process.env.PORT || 3000)
 
@@ -47,7 +47,7 @@ app.delete('/api/v1/meals/:meal_id/foods/:id', (request, response) => {
 })
 
 app.get('/api/v1/foods', (request, response) => {
-  return database.raw("SELECT * FROM foods")
+  Food.allFoods()
   .then(function (data) {
     if (data.rowCount === 0) { return response.sendStatus(404) }
     response.json(data.rows)
