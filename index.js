@@ -1,17 +1,12 @@
 var express = require('express')
 var app = express()
 var bodyParser = require('body-parser')
-const environment = process.env.NODE_ENV || 'development'
 const Meal = require('./lib/models/meal')
 
 app.set('port', process.env.PORT || 3000)
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-
-app.get('/', function(request, response) {
-  response.sendFile(path.join(__dirname+'/welcome.html'))
-})
 
 app.get('/api/v1/meals', (request, response) => {
   Meal.allMeals()
@@ -32,6 +27,14 @@ app.get('/api/v1/meals/:meal_id/foods', (request, response) => {
 app.post('/api/v1/meals/:meal_id/foods/:id', (request, response) => {
   Meal.addFoodToMeal(request.params.id, request.params.meal_id)
   .then(function (data){
+    if (data.rowCount === 0) { return response.sendStatus(404) }
+    response.json(data.rows)
+  })
+})
+
+app.delete('/api/v1/meals/:meal_id/foods/:id', (request, response) => {
+  Meal.removeFoodFromMeal(request.params.id, request.params.meal_id)
+  .then(function (data) {
     if (data.rowCount === 0) { return response.sendStatus(404) }
     response.json(data.rows)
   })
