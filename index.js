@@ -2,11 +2,16 @@ var express = require('express')
 var app = express()
 var bodyParser = require('body-parser')
 const Meal = require('./lib/models/meal')
+const path = require('path')
 
 app.set('port', process.env.PORT || 3000)
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+
+app.get('/',function (request, response) {
+  response.sendFile(path.join(__dirname +'/index.html'));
+});
 
 app.get('/api/v1/meals', (request, response) => {
   Meal.allMeals()
