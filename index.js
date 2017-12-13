@@ -5,6 +5,11 @@ const Meal = require('./lib/models/meal')
 const Food = require('./lib/models/food')
 const path = require('path')
 const cors = require('cors')
+const environment = process.env.NODE_ENV || 'development'
+const configuration = require('./knexfile')[environment]
+const database = require('knex')(configuration)
+const FoodController = require('./lib/controllers/foods')
+
 
 app.set('port', process.env.PORT || 3000)
 
@@ -53,12 +58,22 @@ app.delete('/api/v1/meals/:meal_id/foods/:id', (request, response) => {
   })
 })
 
-app.get('/api/v1/foods', (request, response) => {
-  Food.allFoods()
-  .then(function (data) {
-    if (data.rowCount === 0) { return response.sendStatus(404) }
-    response.json(data.rows)
-  })
+app.get('/api/v1/foods', FoodController.getAllFoods);
+
+app.post('/api/v1/foods', FoodController.postFood);
+
+app.get('/api/v1/foods/:id', FoodController.getSingleFood);
+
+app.delete('/api/v1/foods/:id', FoodController.deleteFood);
+
+app.put('/api/v1/foods/:id', FoodController.updateFood);
+
+
+
+
+
+app.listen(app.get('port'), function() {
+  console.log(`App is running on ${app.get('port')}.`)
 })
 
 if (!module.parent) {
