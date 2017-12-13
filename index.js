@@ -4,11 +4,13 @@ var bodyParser = require('body-parser')
 const Meal = require('./lib/models/meal')
 const Food = require('./lib/models/food')
 const path = require('path')
+const cors = require('cors')
 
 app.set('port', process.env.PORT || 3000)
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(cors)
 
 app.get('/',function (request, response) {
   response.sendFile(path.join(__dirname +'/index.html'));
