@@ -9,7 +9,7 @@ const environment = process.env.NODE_ENV || 'development'
 const configuration = require('./knexfile')[environment]
 const database = require('knex')(configuration)
 const FoodController = require('./lib/controllers/foods')
-
+const pry = require('pryjs')
 
 app.set('port', process.env.PORT || 3000)
 
@@ -28,7 +28,10 @@ app.get('/', function (request, response) {
 
 app.get('/api/v1/meals', (request, response) => {
   Meal.allMeals()
-  .then(function (data){
+  .then(function (data) {
+    data.rows.forEach ((meal) => {
+      if (meal.foods[0] === null) { meal.foods = [] }
+    })
     if (data.rowCount === 0) { return response.sendStatus(404) }
     response.json(data.rows)
   })
@@ -36,7 +39,7 @@ app.get('/api/v1/meals', (request, response) => {
 
 app.get('/api/v1/meals/:meal_id/foods', (request, response) => {
   Meal.oneMeal(request.params.meal_id)
-  .then(function (data){
+  .then(function (data) {
     if (data.rowCount === 0) { return response.sendStatus(404) }
     response.json(data.rows)
   })
