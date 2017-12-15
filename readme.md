@@ -31,3 +31,7 @@ Clone down this repo locally with `git clone https://github.com/Aram-Anderson/qu
 
 Run `npm install`. Run `psql` (this post assumes you have PostgreSQL installed locally). Run `CREATE DATABASE quantified-self`. `\q` to exit psql. Run `knex migrations:latest`, then `kenx seed:run`.
 You're all set up. Now run `nodemon` to spin up a local server, and visit it at `localhost:3000`.
+
+## Contributing
+
+Please fork this repo, and send one of us a message with what you'd like to add to the project. Once you've implemented your changes, make a PR and we will review it. 
